@@ -99,20 +99,29 @@
       const taskName = ref('Реактивный счётчик (1 балл)')
       
       const count = ref(0)
+      const count2 = ref(0)
       function increment() {
         count.value++
+      }
+      function increment2() {
+        count2.value++
       }
       
       return { 
         taskName,
         count,
-        increment
+        count2,
+        increment,
+        increment2
       }
     },
     template: `
       <div>
         <h2>{{ taskName }}</h2>
         <button @click="increment">Нажатий: {{ count }}</button>
+        <h3>Если нужно было разделить текст и кнопку:</h3>
+        <button @click="increment2">---</button><br>
+        <label padding=4>{{ count2 }}</label>
       </div>
     `
   })
