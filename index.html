@@ -130,12 +130,34 @@
   const Task3 = defineComponent({
     setup() {
       const taskName = ref('Условный рендеринг (1 балл)')
-      return { taskName }
+
+      const description = ref('Что-то написано типа описание вот пишу пишу пишу')
+      const show = ref(true)
+      const btnTxt = ref('Скрыть')
+
+      function visibility() {
+        show.value = !show.value
+        if (show.value) {
+          btnTxt.value = "Скрыть"
+        } else {
+          btnTxt.value = "Показать"
+        }
+      }
+
+      return {
+        taskName,
+        description,
+        show,
+        btnTxt,
+        visibility
+      }
     },
     template: `
       <div>
         <h2>{{ taskName }}</h2>
-        <p>Содержимое задания 3</p>
+        <p v-if="show">{{ description }}</p>
+        <p v-else="show"></p>
+        <button @click="visibility">{{ btnTxt }} описание</button>
       </div>
     `
   })
