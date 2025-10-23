@@ -166,12 +166,27 @@
   const Task4 = defineComponent({
     setup() {
       const taskName = ref('Список элементов (1 балл)')
-      return { taskName }
+
+      let id = 0
+      const todos = ref([
+        { id: id++, text: 'Защитить какую-нибудь лабу раз' },
+        { id: id++, text: 'Защитить какую-нибудь лабу два' },
+        { id: id++, text: 'Защитить какую-нибудь лабу три' },
+      ])
+
+      return { 
+        taskName,
+        todos
+      }
     },
     template: `
       <div>
         <h2>{{ taskName }}</h2>
-        <p>Содержимое задания 4</p>
+        <ul>
+          <li v-for="todo in todos" :key = "todo.id">
+            {{ todo.id + 1 }}. {{ todo.text }}
+          </li>
+        </ul>
       </div>
     `
   })
