@@ -195,12 +195,45 @@
   const Task5 = defineComponent({
     setup() {
       const taskName = ref('Мини-форма (1 балл)')
-      return { taskName }
+
+      const name = ref('')
+      const age = ref('')
+      const arr = ref([])
+
+      function saveToArr() {
+        const name_str = String(name.value).trim()
+        const age_str = String(age.value).trim()
+
+        if (name_str && age_str) {
+          arr.value.push({ name: name_str, age: age_str })
+          name.value = ''
+          age.value = ''
+        }
+      }
+    
+      return {
+        taskName,
+        name, age,
+        arr, saveToArr
+      }
     },
     template: `
       <div>
         <h2>{{ taskName }}</h2>
-        <p>Содержимое задания 5</p>
+        <label style="margin-right: 39px">Имя:</label>
+        <input v-model="name" type="text" placeholder="Введите имя"><br>
+        <label style="margin-right: 12px">Возраст:</label>
+        <input v-model="age" type="number" placeholder="Введите возраст"><br>
+        <button @click="saveToArr">Добавить</button>
+
+        <div v-if="arr.length > 0" style="margin-top: 32px;">
+          <h3>Добавленные объекты:</h3>
+          <ul>
+            <li v-for="(user, index) in arr" :key="index">
+              {{ user.name }} - {{ user.age }} лет
+            </li>
+          </ul>
+        </div>
       </div>
     `
   })
